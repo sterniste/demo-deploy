@@ -77,7 +77,14 @@
 						</goals>
 						<configuration>
 							<tasks>
-								<move file="target/build/modules/demo-deploy-module-one-${version}.jar" tofile="target/build/modules/meow-${version}.jar" />
+								<move todir="target/build/modules">
+                  <fileset dir="target/build/modules">
+                    <include name="demo-deploy-*"/>
+                  </fileset>
+                  <mapper>
+                    <regexpmapper from="^demo-deploy-([^0-9]*).*\.jar$" to="demo-deploy-\1meow-${version}.jar" />
+                  </mapper>
+                </move>
 							</tasks>
 						</configuration>
 					</execution>
