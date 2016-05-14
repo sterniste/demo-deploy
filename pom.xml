@@ -11,8 +11,19 @@
     <url>scm:git:http://bitbucket.org/sstern/demo-deploy.git</url>
   </scm>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.11</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <modules>
-    <module>demo-deploy-parent</module>
+    <!--module>demo-deploy-parent</module-->
     <module>demo-deploy-module-one</module>
     <module>demo-deploy-module-two</module>
   </modules>

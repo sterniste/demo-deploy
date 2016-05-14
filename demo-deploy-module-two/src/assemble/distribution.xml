@@ -1,0 +1,47 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+	<id>artifacts</id>
+
+	<formats>
+		<format>zip</format>
+	</formats>
+
+	<includeBaseDirectory>false</includeBaseDirectory>
+
+	<moduleSets>
+		<moduleSet>
+			<useAllReactorProjects>true</useAllReactorProjects>
+
+			<includes>
+				<include>own.sstern:demo-deploy-module-one</include>
+			</includes>
+
+			<binaries>
+				<includeDependencies>false</includeDependencies>
+				<outputDirectory>build/modules</outputDirectory>
+				<unpack>false</unpack>
+			</binaries>
+		</moduleSet>
+
+		<!--moduleSet>
+			<useAllReactorProjects>true</useAllReactorProjects>
+
+			<includes>
+				<include>own.sstern:demo-deploy-module-two</include>
+			</includes>
+
+			<binaries>
+				<includeDependencies>true</includeDependencies>
+				<outputDirectory>build/modules</outputDirectory>
+				<unpack>false</unpack>
+				<dependencySets>
+					<dependencySet>
+						<outputDirectory>build/lib</outputDirectory>
+						<includes>
+							<include>own.sstern:demo-deploy-module-one</include>
+						</includes>
+					</dependencySet>
+				</dependencySets>
+			</binaries>
+		</moduleSet-->
+  </moduleSets>
+</assembly>
