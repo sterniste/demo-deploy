@@ -21,27 +21,5 @@
 				<unpack>false</unpack>
 			</binaries>
 		</moduleSet>
-
-		<!--moduleSet>
-			<useAllReactorProjects>true</useAllReactorProjects>
-
-			<includes>
-				<include>own.sstern:demo-deploy-module-two</include>
-			</includes>
-
-			<binaries>
-				<includeDependencies>true</includeDependencies>
-				<outputDirectory>build/modules</outputDirectory>
-				<unpack>false</unpack>
-				<dependencySets>
-					<dependencySet>
-						<outputDirectory>build/lib</outputDirectory>
-						<includes>
-							<include>own.sstern:demo-deploy-module-one</include>
-						</includes>
-					</dependencySet>
-				</dependencySets>
-			</binaries>
-		</moduleSet-->
   </moduleSets>
 </assembly>

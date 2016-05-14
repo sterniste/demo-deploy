@@ -1,37 +1,37 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  
-  <parent>
-    <groupId>own.sstern</groupId>
-    <artifactId>demo-deploy</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <relativePath>..</relativePath>
-  </parent>
-  
-  <groupId>own.sstern</groupId>
-  <artifactId>demo-deploy-module-two</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
-  
-  <scm>
-    <developerConnection>scm:git:git@bitbucket.org:sstern/demo-deploy.git/demo-deploy-module-two</developerConnection>
-    <url>scm:git:http://bitbucket.org/sstern/demo-deploy.git/demo-deploy-module-two</url>
-  </scm>
-  
-  <dependencies>
-    <dependency>
-      <groupId>own.sstern</groupId>
-      <artifactId>demo-deploy-module-one</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>own.sstern</groupId>
+		<artifactId>demo-deploy</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	
+	<groupId>own.sstern</groupId>
+	<artifactId>demo-deploy-module-two</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	
+	<scm>
+		<developerConnection>scm:git:git@bitbucket.org:sstern/demo-deploy.git/demo-deploy-module-two</developerConnection>
+		<url>scm:git:http://bitbucket.org/sstern/demo-deploy.git/demo-deploy-module-two</url>
+	</scm>
+	
+	<dependencies>
+		<dependency>
+			<groupId>own.sstern</groupId>
+			<artifactId>demo-deploy-module-one</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
 
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-  
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -51,6 +51,51 @@
 						<descriptor>src/assemble/distribution.xml</descriptor>
 					</descriptors>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<id>unzip-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<unzip src="target/${project.build.finalName}-artifacts.zip" dest="target" />
+							</tasks>
+						</configuration>
+					</execution>
+					<execution>
+						<id>rename-assembled-demo-deploy-module-one-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<move file="target/build/modules/demo-deploy-module-one-${version}.jar" tofile="target/build/modules/meow-${version}.jar" />
+							</tasks>
+						</configuration>
+					</execution>
+					<execution>
+						<id>rezip-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<zip destfile="target/${project.build.finalName}-artifacts.zip"> 
+									<fileset dir="target" includes="build/**" /> 
+								</zip> 
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
