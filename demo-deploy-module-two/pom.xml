@@ -82,7 +82,7 @@
                     <include name="demo-deploy-*"/>
                   </fileset>
                   <mapper>
-                    <regexpmapper from="^demo-deploy-([^0-9]*).*\.jar$" to="demo-deploy-\1meow-${version}.jar" />
+                    <regexpmapper from="^demo-deploy-(.*)-[0-9].*\.jar$" to="demo-deploy-\1-meow-${version}.jar" />
                   </mapper>
                 </move>
 							</tasks>
