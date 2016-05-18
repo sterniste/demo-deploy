@@ -11,6 +11,17 @@
     <url>scm:git:http://bitbucket.org/sstern/demo-deploy.git</url>
   </scm>
 
+  <distributionManagement>
+    <snapshotRepository>
+      <id>nexus-libs-snapshots</id>
+      <url>http://localhost:8081/repository/maven-snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>nexus-libs-releases</id>
+      <url>http://localhost:8081/repository/maven-releases</url>
+    </repository>
+  </distributionManagement>
+
   <dependencyManagement>
     <dependencies>
       <dependency>

@@ -12,6 +12,10 @@
 	<artifactId>demo-deploy-module-two</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
+
+	<properties>
+		<gwt.version>2.5.1</gwt.version>
+	</properties>
 	
 	<scm>
 		<developerConnection>scm:git:git@bitbucket.org:sstern/demo-deploy.git/demo-deploy-module-two</developerConnection>
@@ -25,6 +29,58 @@
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 
+		<!-- GWT -->
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwt.version}</version>
+			<scope>provided</scope>
+
+			<exclusions>
+				<exclusion>
+					<groupId>javax.validation</groupId>
+					<artifactId>validation-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-elemental</artifactId>
+			<version>${gwt.version}</version>
+		</dependency>
+
+		<!-- Validation needed during GWT compile -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- GWT servlet effectively disabled by making it provided -->
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>${gwt.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-dev</artifactId>
+			<version>${gwt.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- GIN dependencies -->
+		<dependency>
+			<groupId>com.google.gwt.inject</groupId>
+			<artifactId>gin</artifactId>
+			<version>2.1.0</version>
+			<!-- <scope>provided</scope> -->
+		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -35,74 +91,39 @@
 	<build>
 		<plugins>
 			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.2</version>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>${gwt.version}</version>
 				<executions>
 					<execution>
-						<phase>package</phase>
 						<goals>
-							<goal>single</goal>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>generateCss</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>css</goal>
 						</goals>
 					</execution>
 				</executions>
 				<configuration>
-					<finalName>${project.build.finalName}</finalName>
-					<descriptors>
-						<descriptor>src/assemble/distribution.xml</descriptor>
-					</descriptors>
+					<runTarget>http://localhost:8080/gwt/</runTarget>
+					<extraJvmArgs>-Xmx1g -XX:MaxPermSize=256m</extraJvmArgs>
+					<noServer>true</noServer>
+					<modules>
+						<module>own.sstern.gwt.ModuleTwo</module>
+					</modules>
+					<localWorkers>4</localWorkers>
+					<inplace>true</inplace>
+					<noServer>true</noServer>
+					<hostedWebapp>src/main/webapp</hostedWebapp>
+					<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
+					<compileSourcesArtifacts>
+						<compileSourcesArtifact>own.sstern:demo-deploy-module-one</compileSourcesArtifact>
+					</compileSourcesArtifacts>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.8</version>
-				<executions>
-					<execution>
-						<id>unzip-assembly</id>
-						<phase>package</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<tasks>
-								<unzip src="target/${project.build.finalName}-artifacts.zip" dest="target" />
-							</tasks>
-						</configuration>
-					</execution>
-					<execution>
-						<id>rename-assembled-demo-deploy-module-one-jar</id>
-						<phase>package</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<tasks>
-								<move todir="target/build/modules">
-                  <fileset dir="target/build/modules">
-                    <include name="demo-deploy-*"/>
-                  </fileset>
-                  <mapper>
-                    <regexpmapper from="^demo-deploy-(.*)-[0-9].*\.jar$" to="demo-deploy-\1-meow-${version}.jar" />
-                  </mapper>
-                </move>
-							</tasks>
-						</configuration>
-					</execution>
-					<execution>
-						<id>rezip-assembly</id>
-						<phase>package</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<tasks>
-								<zip destfile="target/${project.build.finalName}-artifacts.zip"> 
-									<fileset dir="target" includes="build/**" /> 
-								</zip> 
-							</tasks>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
