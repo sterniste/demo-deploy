@@ -14,11 +14,11 @@
   <distributionManagement>
     <snapshotRepository>
       <id>nexus-libs-snapshots</id>
-      <url>http://localhost:8081/repository/maven-snapshots</url>
+      <url>http://nexus.medicim.local/nexus/content/repositories/snapshots</url>
     </snapshotRepository>
     <repository>
       <id>nexus-libs-releases</id>
-      <url>http://localhost:8081/repository/maven-releases</url>
+      <url>http://nexus.medicim.local/nexus/content/repositories/releases</url>
     </repository>
   </distributionManagement>
 
