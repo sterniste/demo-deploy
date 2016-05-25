@@ -10,7 +10,6 @@
   
   <groupId>own.sstern</groupId>
   <artifactId>demo-deploy-module-two</artifactId>
-  <version>1.0-release</version>
   <packaging>jar</packaging>
 
   <distributionManagement>
