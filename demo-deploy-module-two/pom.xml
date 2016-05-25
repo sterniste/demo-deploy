@@ -10,19 +10,14 @@
   
   <groupId>own.sstern</groupId>
   <artifactId>demo-deploy-module-two</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0-release</version>
   <packaging>jar</packaging>
-  
-  <scm>
-    <developerConnection>scm:git:git@bitbucket.org:sstern/demo-deploy.git</developerConnection>
-    <url>scm:git:http://bitbucket.org/sstern/demo-deploy.git</url>
-  </scm>
   
   <dependencies>
     <dependency>
       <groupId>own.sstern</groupId>
       <artifactId>demo-deploy-module-one</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>1.0-release</version>
     </dependency>
 
     <dependency>

@@ -16,8 +16,8 @@
   </properties>
   
   <scm>
-    <developerConnection>scm:git:git@bitbucket.org:sstern/demo-deploy.git</developerConnection>
-    <url>scm:git:http://bitbucket.org/sstern/demo-deploy.git</url>
+    <developerConnection>scm:git:git@github.com:sterniste/demo-deploy.git</developerConnection>
+    <url>scm:git:http://github.com/sterniste/demo-deploy.git</url>
   </scm>
 
   <distributionManagement>
