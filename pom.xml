@@ -127,7 +127,7 @@
             <configuration>
               <serverId>nexus-libs-releases</serverId>
               <nexusUrl>http://localhost:8081/repository/maven-releases</nexusUrl>
-              <skipStaging>true</skipStaging>
+              <skipStaging>false</skipStaging>
             </configuration>
           </plugin>
         </plugins>
