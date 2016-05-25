@@ -12,6 +12,17 @@
   <artifactId>demo-deploy-module-two</artifactId>
   <version>1.0-release</version>
   <packaging>jar</packaging>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>nexus-libs-snapshots</id>
+      <url>http://localhost:8081/repository/maven-snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>nexus-libs-releases</id>
+      <url>http://localhost:8081/repository/maven-releases</url>
+    </repository>
+  </distributionManagement>
   
   <dependencies>
     <dependency>
